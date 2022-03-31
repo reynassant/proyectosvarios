@@ -13,7 +13,6 @@ def punto_de_mira():
     raton.ylabel('Y')
     raton.xlabel('X')
     raton.show()
-    print("Hola punto de mira")
 
 if __name__ == '__main__':
     punto_de_mira()
