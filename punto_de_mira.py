@@ -1,4 +1,8 @@
 import matplotlib.pyplot as raton
+import random
+
+FACTOR_DESVIO = 0.3
+
 
 lista_de_coordenadas = [
     [0, 0],
@@ -14,7 +18,6 @@ lista_de_coordenadas = [
 
 def maximo_abs(lista_de_coordenadas):
     maximo_total = 0
-
     for pareja_de_coordenadas in lista_de_coordenadas:
         maxim = abs(max(pareja_de_coordenadas))
         minim = abs(min(pareja_de_coordenadas))
@@ -34,14 +37,12 @@ def calcula_hipotenusas(lista_de_coordenadas):
 
 
 def dibuja_balas(lista_de_coordenadas):
-
     max_coord = maximo_abs(lista_de_coordenadas) + 1
 
     print(f"busca_máximo_coordenadas: [{max_coord}]")
 
     raton.xlim(-1 * max_coord, max_coord)
     raton.ylim(-1 * max_coord, max_coord)
-
 
     for pareja_de_coordenadas in lista_de_coordenadas:
         raton.plot(pareja_de_coordenadas[0], pareja_de_coordenadas[1], 'bo')
@@ -53,31 +54,40 @@ def dibuja_balas(lista_de_coordenadas):
 # Este def recorre la lista entera
 
 def iterar_lista(lista_de_coordenadas, lista_hipotenusa):
-
-    contador_index = 0
+    lista_final = []
+    i = 0
     num_final = len(lista_de_coordenadas) - 1
-    while(contador_index <= num_final):
 
-        print(
-            f'{lista_de_coordenadas[contador_index]} -- {lista_hipotenusa[contador_index]}')
-        algo_misterioso(
-            lista_de_coordenadas[contador_index], lista_hipotenusa[contador_index])
-        contador_index += 1
+    while(i <= num_final):
+        # print(f'{lista_de_coordenadas[i]} -- {lista_hipotenusa[i]}')
+        lista_final.append(
+            aleatorio(lista_de_coordenadas[i], lista_hipotenusa[i]))
+        i += 1
 
-
-def algo_misterioso(pareja_de_coordenadas, hipotenusa):
-
-    return pareja_de_coordenadas
+    return lista_final
 
 
-lista_hipotenusa = calcula_hipotenusas(lista_de_coordenadas)
-iterar_lista(lista_de_coordenadas, lista_hipotenusa)
+def aleatorio(vieja_pareja, hipotenusa):
+    desviacion_max = FACTOR_DESVIO * hipotenusa
+    x = vieja_pareja[0]
+    y = vieja_pareja[1]
 
-# print(lista_de_coordenadas)
-# print(lista_hipotenusa)
+    aleat_x = random.uniform(-1, 1)
+    aleat_y = random.uniform(-1, 1)
 
-dibuja_balas(lista_de_coordenadas)
+    new_x = x + (aleat_x * desviacion_max)
+    new_y = y + (aleat_y * desviacion_max)
+
+    nueva_pareja = [new_x, new_y]
+    # print(f"OLD:{vieja_pareja}  -- DESV {desviacion_max} -- NEW: {nueva_pareja}")
+
+    return nueva_pareja
 
 
-# if __name__ == '__main__':
+if __name__ == '__main__':
+    lista_hipotenusa = calcula_hipotenusas(lista_de_coordenadas)
+    lista_final = iterar_lista(lista_de_coordenadas, lista_hipotenusa)
+    
+    dibuja_balas(lista_final)
+
 #     lista_de_coordenadas()
