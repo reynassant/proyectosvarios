@@ -87,7 +87,7 @@ def aleatorio(vieja_pareja, hipotenusa):
 if __name__ == '__main__':
     lista_hipotenusa = calcula_hipotenusas(lista_de_coordenadas)
     lista_final = iterar_lista(lista_de_coordenadas, lista_hipotenusa)
-    
+
     dibuja_balas(lista_final)
 
 #     lista_de_coordenadas()
